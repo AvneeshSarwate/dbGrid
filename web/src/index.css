@@ -1,0 +1,415 @@
+:root {
+  --bg: #f5f5f5;
+  --surface: #ffffff;
+  --border: #e0e0e0;
+  --text: #333333;
+  --text-muted: #888888;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --danger: #dc2626;
+  --danger-hover: #b91c1c;
+  --dirty-bg: #fef3c7;
+  --error-bg: #fecaca;
+  --sidebar-width: 240px;
+  --toolbar-height: 48px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--bg);
+}
+
+/* Layout */
+.app-layout {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+  width: var(--sidebar-width);
+  min-width: var(--sidebar-width);
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+
+.table-list {
+  list-style: none;
+}
+
+.table-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.1s;
+}
+
+.table-item:hover {
+  background: #f0f0f0;
+}
+
+.table-item.active {
+  background: #e8f0fe;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.expand-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 6px 0 0;
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1;
+}
+
+.table-name {
+  font-size: 13px;
+}
+
+.column-list {
+  list-style: none;
+  padding: 2px 0 6px 24px;
+  background: #fafafa;
+}
+
+.column-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 12px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.col-name {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+.col-type {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  color: #6366f1;
+}
+
+/* Main area */
+.main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Toolbar */
+.toolbar {
+  height: var(--toolbar-height);
+  min-height: var(--toolbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  gap: 12px;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.toolbar-title {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.save-mode-toggle {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.toggle-label input {
+  cursor: pointer;
+}
+
+.explicit-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dirty-badge {
+  background: var(--dirty-bg);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #92400e;
+}
+
+/* Grid */
+.grid-wrapper {
+  flex: 1;
+  overflow: hidden;
+  padding: 0;
+}
+
+.grid-container {
+  width: 100%;
+  height: 100%;
+}
+
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-muted);
+  font-size: 16px;
+}
+
+/* Grid cell styles */
+.cell-dirty {
+  background-color: var(--dirty-bg) !important;
+}
+
+.cell-error {
+  background-color: var(--error-bg) !important;
+}
+
+.null-value {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.json-preview {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 11px;
+  color: #6366f1;
+  cursor: pointer;
+}
+
+.btn-delete-row {
+  background: none;
+  border: none;
+  color: var(--danger);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  line-height: 1;
+}
+
+.btn-delete-row:hover {
+  background: var(--error-bg);
+}
+
+/* Buttons */
+.btn {
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+
+.btn-sm {
+  padding: 4px 10px;
+  font-size: 11px;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--text);
+}
+
+.btn-secondary:hover {
+  background: #f0f0f0;
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+  border-color: var(--danger);
+}
+
+.btn-danger:hover {
+  background: var(--danger-hover);
+}
+
+/* Modals */
+.modal-dialog {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  padding: 0;
+  max-width: 500px;
+  width: 90%;
+}
+
+.modal-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.json-modal {
+  max-width: 600px;
+}
+
+.add-row-modal {
+  max-width: 500px;
+  max-height: 80vh;
+}
+
+.add-row-modal .modal-content {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal-content {
+  padding: 20px;
+}
+
+.modal-content h3 {
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+/* Form fields */
+.form-field {
+  margin-bottom: 12px;
+}
+
+.form-field label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+.nullable-badge {
+  font-size: 10px;
+  padding: 1px 5px;
+  background: #e0e7ff;
+  color: #4338ca;
+  border-radius: 3px;
+}
+
+.type-badge {
+  font-size: 10px;
+  padding: 1px 5px;
+  background: #f0fdf4;
+  color: #15803d;
+  border-radius: 3px;
+}
+
+.input-error {
+  border-color: var(--danger) !important;
+}
+
+.error-text {
+  color: var(--danger);
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+/* JSON textarea */
+.json-textarea {
+  width: 100%;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 12px;
+  resize: vertical;
+  min-height: 200px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.json-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.json-textarea-small {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 12px;
+  resize: vertical;
+}

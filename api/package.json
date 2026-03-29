@@ -1,0 +1,24 @@
+{
+  "name": "@dbgrid/api",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "@dbgrid/shared": "*",
+    "@fastify/cors": "^11.0.0",
+    "better-sqlite3": "^11.7.0",
+    "drizzle-orm": "^0.44.0",
+    "fastify": "^5.3.0",
+    "fastify-plugin": "^5.1.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "drizzle-kit": "^0.31.0"
+  }
+}
