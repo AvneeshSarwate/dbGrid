@@ -9,7 +9,7 @@ declare module 'fastify' {
 }
 
 export default fp(async function dbPlugin(fastify: FastifyInstance) {
-  const dbPath = process.env.DB_PATH || 'demo.db'
+  const dbPath = process.env.DB_PATH || '../demo.db'
   const db = createDb(dbPath)
   fastify.decorate('db', db)
 })

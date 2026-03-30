@@ -1,73 +1,31 @@
-# React + TypeScript + Vite
+# dbGrid
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An editable data grid UI backed by SQLite — built for fast UI iteration on database editing workflows, architected to be extended to other backends and server-side features.
 
-Currently, two official plugins are available:
+## Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run db:generate demo.db ./api/src/db/generators/basic.ts --rows 50
+npm run dev:api    # starts API on port 3001
+npm run dev:web    # starts frontend on port 5173
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Running Tests
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run test:unit  # shared package unit tests
+npm run test:api   # API route tests
 ```
+
+## Architecture
+
+The project is a monorepo with three workspaces:
+
+- **`web/`** — React frontend using AG Grid for the editable table UI, TanStack Query for server state management, and Vite for dev/build.
+- **`api/`** — Fastify server exposing REST endpoints for table metadata, row CRUD, and cell-level updates. Uses Drizzle ORM with better-sqlite3.
+- **`shared/`** — Zod schemas, DTOs, validation logic, column metadata helpers, and a table registry shared between client and server.
+
+The frontend does client-side sort/filter/pagination in v1, but the API and state layer are shaped so server-side processing can replace it later.
+
+See [implementation_plan.md](./implementation_plan.md) for deeper design decisions and rationale.
